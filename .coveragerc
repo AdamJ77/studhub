@@ -1,0 +1,2 @@
+[run]
+omit = ./studsched/main.py,*/__init__.py

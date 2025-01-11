@@ -1,0 +1,16 @@
+FROM node:21-alpine
+
+ARG REACT_PORT
+
+WORKDIR /frontend
+COPY frontend/package*.json /frontend
+RUN npm install
+run npm install styled-components
+run npm install axios
+COPY frontend/. /frontend
+RUN npm run build
+ENV PORT=${REACT_PORT}
+ENV REACT_APP_SERVER_URL=https://localhost:8000
+ENV HOST=0.0.0.0
+EXPOSE ${REACT_PORT}
+CMD ["npm", "start"]
