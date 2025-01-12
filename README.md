@@ -17,7 +17,7 @@ For example, to start the application in the development environment, you would 
 
 To use the app, first log in to USOS student account under
 `
-localhost:8080/api/v1/login
+localhost:3000/login
 `
 
 
