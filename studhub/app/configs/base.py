@@ -1,19 +1,15 @@
 """Base settings class contains only important fields."""
-from enum import Enum
 
 # mypy: ignore-errors
 import ast
 import os
 import secrets
-from typing import List, Union, Dict, Optional, Any
-from pydantic import (
-    BaseModel,
-    AnyHttpUrl,
-    BaseSettings,
-    validator,
-    PostgresDsn,
-)
-from ..utils.logging import StandardFormatter, ColorFormatter
+from enum import Enum
+from typing import Any, Dict, List, Optional, Union
+
+from pydantic import AnyHttpUrl, BaseModel, BaseSettings, PostgresDsn, validator
+
+from ..utils.logging import ColorFormatter, StandardFormatter
 
 
 class LoggingConfig(BaseModel):
@@ -26,7 +22,7 @@ class LoggingConfig(BaseModel):
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Student Scheduler"
-    PROJECT_SLUG: str = "studsched"
+    PROJECT_SLUG: str = "studhub"
     LOAD_EXAMPLE_DATA: bool = False
 
     DEBUG: bool = True
@@ -67,9 +63,7 @@ class Settings(BaseSettings):
 
     # noinspection PyMethodParameters
     @validator("CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(
-        cls, v: Union[str, List[str]]
-    ) -> Union[List[str], str]:
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
         """Validate the value of BACKEND_CORS_ORIGINS.
 
         Args:
@@ -102,9 +96,7 @@ class Settings(BaseSettings):
 
     # noinspection PyMethodParameters
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(
-        cls, v: Optional[str], values: Dict[str, Any]
-    ) -> str:
+    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> str:
         """Assemble the postgres DB URI with the provided POSTGRES_SERVER,
         POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB.
 
@@ -143,7 +135,7 @@ class Settings(BaseSettings):
             },
         },
         "loggers": {
-            "studsched": {
+            "studhub": {
                 "handlers": ["consoleHandler"],
                 "level": "DEBUG",
             },
@@ -167,3 +159,8 @@ class Settings(BaseSettings):
             args_str = ""
         args_str += "decode_responses=true"
         REDIS_URL = url + "?" + args_str
+
+    # ########################## OAuth Configuration ###########################
+    USOS_CLIENT_KEY = os.getenv("USOS_CLIENT_KEY")
+    if not USOS_CLIENT_KEY:
+        raise ValueError("USOS_CLIENT_KEY is not set.")

@@ -1,44 +1,44 @@
-"""Module containing FastAPI instance related functions and classes."""
-
 # mypy: ignore-errors
 import logging.config
-import pathlib
+import secrets
+from contextlib import asynccontextmanager
+from pathlib import Path
 
+from authlib.integrations.starlette_client import OAuth
 from fastapi import FastAPI
 from sqlmodel import SQLModel, text
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.middleware.sessions import SessionMiddleware
 from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 
 from .api import api_router
-from .events.base import logger
 from .chat.chat import create_chat_service
 from .configs import get_settings
 from .db import engine
 from .middlewares import log_time
 from .version import __version__
-from contextlib import asynccontextmanager
-from authlib.integrations.starlette_client import OAuth
 
 settings = get_settings()
+logger = logging.getLogger(settings.PROJECT_SLUG)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     oauth = OAuth()
     oauth.register(
         name="usos",
-        client_id="TQbmzC4s3FSSBLd5gWkq",
-        client_secret="nhmmmJezLgkp6jk3LaF2nEtEvZFuKwWtN9FGwsqA",
+        client_id="ZqY8Swt2LyAMWmKHwx5M",
+        client_secret=settings.USOS_CLIENT_KEY,
         api_base_url="https://apps.usos.pw.edu.pl/",
-        request_token_url="https://apps.usos.pw.edu.pl/services/oauth/request_token?scopes=email|studies",
+        request_token_url="https://apps.usos.pw.edu.pl/services/oauth/request_token?scopes=email%7Cstudies",
         authorize_url="https://apps.usos.pw.edu.pl/services/oauth/authorize",
-        access_token_url="https://apps.usos.pw.edu.pl/services/oauth/access_token"
+        access_token_url="https://apps.usos.pw.edu.pl/services/oauth/access_token",
     )
     app.oauth = oauth
     app.state.chat_service = create_chat_service(settings.REDIS_URL)
-    logger.info("Starting up ...")
+    logger.info("Starting up studched=%s...", __version__)
     yield
-    logger.info("Shutting down ...")
+    logger.info("Shutting down studched=%s...", __version__)
     app.state.chat_service.close()
 
 
@@ -50,8 +50,8 @@ def create_db_tables():
 def load_example_data(path: str):
     """Load example data to database."""
     with engine.connect() as con:
-        with open((pathlib.Path(__file__).parent) / path, encoding="utf-8") as file:
-            query = text(file.read())
+        with (Path(__file__).parent / path).open() as f:
+            query = text(f.read())
             con.execute(query)
             con.commit()
 
@@ -71,7 +71,6 @@ def create_application() -> FastAPI:
         lifespan=lifespan,
     )
 
-    # Set all CORS enabled origins
     application.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -80,24 +79,18 @@ def create_application() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # add defined routers
     application.include_router(api_router, prefix=settings.API_STR)
 
-
-    # load logging config
     logging.config.dictConfig(settings.LOGGING_CONFIG)
 
-    # add defined middleware functions
     application.add_middleware(BaseHTTPMiddleware, dispatch=log_time)
     application.add_middleware(
         SessionMiddleware,
-        secret_key="nhmmmJezLgkp6jk3LaF2nEtEvZFuKwWtN9FGwsqA",
+        secret_key=secrets.token_hex(32),
     )
 
-    # create tables in db
     create_db_tables()
 
-    # load example data
     if settings.LOAD_EXAMPLE_DATA:
         load_example_data(settings.DUMP_SQL_FILE)
 
