@@ -29,14 +29,13 @@ services:
         MODE: ${MODE}
     container_name: ${BACKEND_CONTAINER_NAME}
     entrypoint: >
-      sh -c "sleep 5 && python ./studsched/main.py"
+      sh -c "sleep 5 && python ./studhub/main.py"
     volumes:
       - ../:/app/
     environment:
-      - PYTHONPATH=/app/studsched
+      - PYTHONPATH=/app/studhub
       - REDIS_URL=redis://redis
-      # - SQLALCHEMY_DATABASE_URI="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_CONTAINER_NAME}:5432/${POSTGRES_DB}"
-      # - MODE=${MODE}
+      - USOS_CLIENT_KEY=${USOS_CLIENT_KEY}
     ports:
       - "8080:8080"
     healthcheck:

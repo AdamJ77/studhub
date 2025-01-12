@@ -31,7 +31,8 @@ services:
     volumes:
       - ../:/app/
     environment:
-      - PYTHONPATH=/app/studsched
+      - PYTHONPATH=/app/studhub
+      - USOS_CLIENT_KEY=${USOS_CLIENT_KEY}
     ports:
       - "8080:8080"
     healthcheck:
