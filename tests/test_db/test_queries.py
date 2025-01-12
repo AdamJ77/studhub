@@ -1,12 +1,13 @@
-from sqlmodel import Session, select
-from studsched.app.db.queries.queries import (
-    get_subjects,
-    replace_requirements,
-    add_user_info,
-)
-from studsched.app.db.models import models
 import pytest
 from sqlalchemy.orm.exc import NoResultFound
+from sqlmodel import Session, select
+
+from studhub.app.db.models import models
+from studhub.app.db.queries.queries import (
+    add_user_info,
+    get_subjects,
+    replace_requirements,
+)
 
 
 @pytest.mark.usefixtures("db_with_user")
@@ -38,9 +39,7 @@ def test_replace_requirements(
     assert len(requirements) == 1
 
     requirement_update = models.RequirementCreate(**requirement.model_dump())
-    replace_requirements(
-        db_with_courses, linked_course.id, [requirement_update] * 2
-    )
+    replace_requirements(db_with_courses, linked_course.id, [requirement_update] * 2)
 
     subjects = get_subjects(user)
     requirements = subjects[0].requirements

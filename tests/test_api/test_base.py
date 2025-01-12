@@ -1,11 +1,11 @@
-from fastapi.testclient import TestClient
-from fastapi import FastAPI, status
-from sqlmodel import Session
 import pytest
+from fastapi import FastAPI, status
+from fastapi.testclient import TestClient
+from sqlmodel import Session
 
-from studsched.app.api.base import get_db, get_current_user
-from studsched.app.version import __version__
-from studsched.app.db.models import models
+from studhub.app.api.base import get_current_user, get_db
+from studhub.app.db.models import models
+from studhub.app.version import __version__
 
 
 @pytest.fixture
@@ -108,9 +108,7 @@ def test_replace_requirements(
 
 @pytest.mark.usefixtures("mock_db_with_courses")
 @pytest.mark.parametrize("endpoint", {"requirements", "tasks"})
-def test_replace_invalid_subject(
-    app: FastAPI, test_client: TestClient, endpoint
-):
+def test_replace_invalid_subject(app: FastAPI, test_client: TestClient, endpoint):
     invalid_linked_course_id = 234
 
     res = test_client.put(

@@ -1,7 +1,7 @@
-from studsched.app.api.authorization import parse_usos_data
-from studsched.app.db.models import models
 from freezegun import freeze_time
 
+from studhub.app.api.authorization import parse_usos_data
+from studhub.app.db.models import models
 
 usos_user = {
     "first_name": "Bob",

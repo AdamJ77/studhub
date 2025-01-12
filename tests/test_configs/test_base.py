@@ -1,7 +1,8 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
-from studsched.app.configs.base import Settings
-from studsched.app.configs import get_settings
+
+from studhub.app.configs import get_settings
+from studhub.app.configs.base import Settings
 
 
 @pytest.mark.parametrize(
@@ -83,16 +84,13 @@ def test_assemble_db_connection_with_uri():
         POSTGRES_DB="postgres",
     )
     assert (
-        s.SQLALCHEMY_DATABASE_URI
-        == "postgresql://dummy:dummy@localhost:9999/dummydb"
+        s.SQLALCHEMY_DATABASE_URI == "postgresql://dummy:dummy@localhost:9999/dummydb"
     )
 
 
 def test_assemble_db_connection_fail():
     with pytest.raises(ValueError) as e:
-        Settings(
-            SQLALCHEMY_DATABASE_URI="http://dummy:dummy@localhost:9999/dummydb"
-        )
+        Settings(SQLALCHEMY_DATABASE_URI="http://dummy:dummy@localhost:9999/dummydb")
     assert type(e.value) == ValidationError
     assert len(e.value.errors()) == 1
     assert e.value.errors()[0] == dict(

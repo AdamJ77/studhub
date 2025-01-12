@@ -1,4 +1,4 @@
-from studsched.app.db.models.models import VersionResponse
+from studhub.app.db.models.models import VersionResponse
 
 
 def test_versionresponse():

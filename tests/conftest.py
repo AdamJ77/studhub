@@ -1,12 +1,13 @@
-from sqlmodel import Session, SQLModel
-from fastapi.testclient import TestClient
 from datetime import datetime
-from freezegun import freeze_time
-import pytest
 
-from studsched.app.application import create_application
-from studsched.app.db.session import engine
-from studsched.app.db.models import models
+import pytest
+from fastapi.testclient import TestClient
+from freezegun import freeze_time
+from sqlmodel import Session, SQLModel
+
+from studhub.app.application import create_application
+from studhub.app.db.models import models
+from studhub.app.db.session import engine
 
 
 @pytest.fixture
