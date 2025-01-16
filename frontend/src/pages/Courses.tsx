@@ -68,7 +68,7 @@ const convertRequirementsBDToRequirements = (requirementsBD: RequirementBD[]): R
 const convertTaskBDToTask = (taskBD: any) => {
   return {
     max_points: parseInt(taskBD.max_points),
-    result: taskBD.points === 0 ? null : taskBD.points,
+    result: taskBD.points,
     deadline: new Date(taskBD.deadline),
     task_type: reverseTaskTypeMapping[taskBD.task_type],
     description: taskBD.description,

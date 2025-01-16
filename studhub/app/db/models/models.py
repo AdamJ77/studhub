@@ -79,9 +79,7 @@ class CourseCreate(CourseBase):
 class Course(CourseBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    linked_courses: list["LinkedCourse"] = Relationship(
-        back_populates="course"
-    )
+    linked_courses: list["LinkedCourse"] = Relationship(back_populates="course")
 
 
 class LinkedCourse(SQLModel, table=True):
@@ -91,9 +89,7 @@ class LinkedCourse(SQLModel, table=True):
 
     user: User = Relationship(back_populates="linked_courses")
     course: Course = Relationship(back_populates="linked_courses")
-    requirements: list["Requirement"] = Relationship(
-        back_populates="linked_course"
-    )
+    requirements: list["Requirement"] = Relationship(back_populates="linked_course")
     tasks: list["Task"] = Relationship(back_populates="course")
 
 
@@ -118,7 +114,7 @@ class RequirementCreate(RequirementBase):
 class TaskBase(SQLModel):
     task_type: TaskType
     max_points: int
-    points: int
+    points: Optional[int]
     deadline: datetime
     description: Optional[str]
 

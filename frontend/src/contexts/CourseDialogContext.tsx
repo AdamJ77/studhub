@@ -48,12 +48,12 @@ export const CourseDialogContextProvider = ({
     "Laboratorium": 1,
     "Projekt": 2,
   };
-  
+
   const requirementTypeMapping = {
     "Total": 1,
     "Separately": 2,
   };
-  
+
   const thresholdTypeMapping = {
     "Points": 1,
     "Percent": 2,
@@ -67,11 +67,11 @@ export const CourseDialogContextProvider = ({
       threshold_type: thresholdTypeMapping[requirement.threshold_type],
     };
   };
-  
+
   const convertTaskToTaskBD = (task: Task) => {
     return {
       max_points: task.max_points,
-      points: task.result === null ? 0 : task.result,
+      points: task.result,
       deadline: task.deadline,
       task_type: taskTypeMapping[task.task_type],
       description: task.description,
@@ -94,7 +94,7 @@ export const CourseDialogContextProvider = ({
         const convertedTask = convertTaskToTaskBD(task);
         tasksBD.push(convertedTask);
       }
-  
+
       // Make PUT request to update requirements
       await fetch(`http://localhost:8080/api/v1/subjects/${id}/requirements`, {
         method: "PUT",
@@ -103,7 +103,7 @@ export const CourseDialogContextProvider = ({
         },
         body: JSON.stringify(requirementsBD),
       });
-  
+
       // Make PUT request to update tasks
       await fetch(`http://localhost:8080/api/v1/subjects/${id}/tasks`, {
         method: "PUT",
@@ -112,7 +112,7 @@ export const CourseDialogContextProvider = ({
         },
         body: JSON.stringify(tasksBD),
       });
-  
+
       console.log("Requirements and tasks updated successfully");
     } catch (error) {
       console.error("Error updating requirements and tasks:", error);

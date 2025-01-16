@@ -43,10 +43,10 @@ export default function CourseDialogTasks() {
             />
             <Input
               type="number"
-              defaultValue={task.result || 0}
+              defaultValue={task.result ?? ""}
               className="mt-2 border-2 border-slate-200 mr-4"
               onChange={(e) =>
-                updateTask(id, "result", parseInt(e.target.value))
+                updateTask(id, "result", e.target.value === "" ? null : parseInt(e.target.value))
               }
             />
             <p className="pt-4">/</p>
