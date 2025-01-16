@@ -55,7 +55,6 @@ def get_current_user(request: Request, db: DatabaseDep):
             token, settings.SECRET_KEY, algorithms=[settings.JWT_ENCODE_ALGORITHM]
         )
         user_id: int = payload.get("id")
-        # user_id = 1
         if user_id is None:
             raise credentials_exception
     except Exception:
@@ -64,6 +63,14 @@ def get_current_user(request: Request, db: DatabaseDep):
 
 
 CurrentUserDep = Annotated[models.User, Depends(get_current_user)]
+
+
+@base_router.get("/me")
+async def user(user: CurrentUserDep):
+    return {
+        'id': user.id,
+        'fullName': user.username,
+    }
 
 
 @base_router.get("/subjects", response_model=list[models.Subject])
@@ -171,7 +178,7 @@ async def create_channel_message(
         )
 
     return await chat.send_message(
-        channel.slug, UserBase(username=f"{user.first_name} {user.last_name}"), message
+        channel.slug, UserBase(username=f"{user.username}"), message
     )
 
 

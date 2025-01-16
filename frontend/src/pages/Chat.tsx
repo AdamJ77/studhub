@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Navbar from "../components/common/Navbar";
 import axios from 'axios';
+import { getUser } from "../utils/auth";
+import type { User } from "../utils/auth";
 
 // Define keyframes for animation
 const fadeIn = keyframes`
@@ -155,6 +157,15 @@ export default function Chat() {
   const [chats, setChats] = useState<Chat[]>([]);
   const [currentInput, setCurrentInput] = useState<{ [key: string]: string }>({});
   const [currentSubject, setCurrentSubject] = useState<string>('');
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -168,7 +179,7 @@ export default function Chat() {
               slug: channel.slug,
               messages: messages.map((msg: any) => ({
                 text: msg.body.text,
-                isUser: msg.sender_username === 'Adam Jeż',
+                isUser: msg.sender_username === user?.fullName,
                 sender: msg.sender_username
               }))
             };
@@ -192,14 +203,14 @@ export default function Chat() {
       try {
         const response = await axios.post(
           `http://localhost:8080/api/v1/channels/${slug}/messages`,
-          { body: {text: currentInput[subject]} },
+          { body: { text: currentInput[subject] } },
           { withCredentials: true }
         );
 
         if (response.status === 200) {
           const savedMessage = {
             text: response.data.body.text,
-            isUser: response.data.sender_username === 'Adam Jeż',
+            isUser: response.data.sender_username === user?.fullName,
             sender: response.data.sender_username
           };
 

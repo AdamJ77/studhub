@@ -52,6 +52,14 @@ class User(UserBase, table=True):
 
     linked_courses: list["LinkedCourse"] = Relationship(back_populates="user")
 
+    @property
+    def username(self):
+        uname = f'{self.first_name}'
+        if middle_names := self.middle_names:
+            uname += f' {middle_names}'
+        uname += f' {self.last_name}'
+        return uname
+
 
 class UserCreate(UserBase):
     "Model for creating new user"

@@ -25,13 +25,9 @@ UsosDep = Annotated[StarletteOAuth1App, Depends(get_usos)]
 
 @authorization_router.get("/login")
 async def login(request: Request, usos: UsosDep):
-
     request.session.clear()
-
     redirect_uri = request.url_for("auth")
-    sth = await usos.authorize_redirect(
-        request, redirect_uri)
-    return sth
+    return await usos.authorize_redirect(request, redirect_uri)
 
 
 async def get_user_data(token, usos: StarletteOAuth1App) -> dict:
@@ -91,4 +87,5 @@ async def auth(request: Request, db: DatabaseDep, usos: UsosDep):
     response.set_cookie(
         key="token", value=jwt_token, httponly=True, secure=False, samesite="lax"
     )
+
     return response

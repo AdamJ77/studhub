@@ -1,4 +1,5 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { getUser } from "../../utils/auth";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,6 +8,16 @@ import {
 } from "../ui/navigation-menu";
 
 export default function Navbar() {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
+  }, []);
+
   const links = [
     {
       href: "/calendar",
@@ -21,6 +32,7 @@ export default function Navbar() {
       title: "Chat",
     },
   ];
+
   return (
     <>
       <NavigationMenu
@@ -46,7 +58,7 @@ export default function Navbar() {
             ))}
           </NavigationMenuItem>
         </NavigationMenuList>
-        <div>Welcome, Jakub "Stachu" Stacherski!</div>
+        <div>Welcome, {user?.fullName}!</div>
       </NavigationMenu>
       <div className="h-16" />
     </>

@@ -64,9 +64,6 @@ export default function LoginCard() {
               </Select>
             </div>
           </div>
-          <Button type="submit" className="mt-4 w-full">
-            Login
-          </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-center items-center">
