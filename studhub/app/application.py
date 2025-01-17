@@ -36,9 +36,9 @@ async def lifespan(app: FastAPI):
     )
     app.oauth = oauth
     app.state.chat_service = create_chat_service(settings.REDIS_URL)
-    logger.info("Starting up studched=%s...", __version__)
+    logger.info("Starting up studhub=%s...", __version__)
     yield
-    logger.info("Shutting down studched=%s...", __version__)
+    logger.info("Shutting down studhub=%s...", __version__)
     app.state.chat_service.close()
 
 

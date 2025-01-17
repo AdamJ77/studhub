@@ -15,9 +15,9 @@ For example, to start the application in the development environment, you would 
 ./docker-compose.sh run dev
 ```
 
-To use the app, first log in to USOS student account under
+To use the app, go to this URL for USOS authorization
 `
-localhost:3000/login
+localhost
 `
 
 

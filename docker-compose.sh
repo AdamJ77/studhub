@@ -66,7 +66,7 @@ elif [ "$command" = "flush"  ]; then
     if [ "$env" = "dev" ]; then
         echo "Flushing the dev database"
         docker rm db
-        docker volume rm student-scheduler_dbdata
+        docker volume rm studenthub_dbdata
     else
         echo "Flush command is only applicable for dev environment."
     fi

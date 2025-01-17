@@ -24,6 +24,7 @@ const CourseDialogContext = createContext<CourseDialogContextType>(
   {} as CourseDialogContextType
 );
 
+const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const useCourseDialogContext = () => useContext(CourseDialogContext);
 
@@ -94,7 +95,7 @@ export const CourseDialogContextProvider = ({
       }
 
       // Make PUT request to update requirements
-      await fetch(`http://localhost:8080/api/v1/subjects/${id}/requirements`, {
+      await fetch(`${apiUrl}/api/v1/subjects/${id}/requirements`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +104,7 @@ export const CourseDialogContextProvider = ({
       });
 
       // Make PUT request to update tasks
-      await fetch(`http://localhost:8080/api/v1/subjects/${id}/tasks`, {
+      await fetch(`${apiUrl}/api/v1/subjects/${id}/tasks`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

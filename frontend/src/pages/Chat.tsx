@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Navbar from "../components/common/Navbar";
 import axios from 'axios';
@@ -131,9 +132,11 @@ interface Chat {
   messages: Message[];
 }
 
+const apiUrl = process.env.REACT_APP_SERVER_URL;
+
 const fetchChannels = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/v1/channels', {
+    const response = await axios.get(`${apiUrl}/api/v1/channels`, {
       withCredentials: true
     });
     return response.data;
@@ -144,7 +147,7 @@ const fetchChannels = async () => {
 
 const fetchMessages = async (channelSlug: any) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/v1/channels/${channelSlug}/messages`, {
+    const response = await axios.get(`${apiUrl}/api/v1/channels/${channelSlug}/messages`, {
       withCredentials: true
     });
     return response.data;
@@ -202,8 +205,8 @@ export default function Chat() {
 
       try {
         const response = await axios.post(
-          `http://localhost:8080/api/v1/channels/${slug}/messages`,
-          { body: { text: currentInput[subject] } },
+          `${apiUrl}/api/v1/channels/${slug}/messages`,
+          { body: {text: currentInput[subject]} },
           { withCredentials: true }
         );
 

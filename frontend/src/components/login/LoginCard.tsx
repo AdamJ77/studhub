@@ -27,7 +27,9 @@ export default function LoginCard() {
 
   const handleLoginWithUSOS = async () => {
     try {
-      window.location.replace("http://localhost:8080/api/v1/login");
+      // console.log(process.env.REACT_APP_SERVER_URL);
+      window.location.replace(`${process.env.REACT_APP_SERVER_URL}/api/v1/login`);
+      // window.location.replace(`http://localhost:80/api/v1/login`);
     } catch (error) {
       console.error("Error initiating login with USOS", error);
     }

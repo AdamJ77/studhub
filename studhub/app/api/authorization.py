@@ -83,7 +83,7 @@ async def auth(request: Request, db: DatabaseDep, usos: UsosDep):
     token_data = {"id": db_user.id}
     jwt_token = create_jwt_token(token_data)
 
-    response = RedirectResponse(url="http://localhost:3000/courses", status_code=307)
+    response = RedirectResponse(url="http://localhost/courses", status_code=307)
     response.set_cookie(
         key="token", value=jwt_token, httponly=True, secure=False, samesite="lax"
     )

@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../components/common/Navbar";
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import Footer from "../components/common/Footer";
+import Navbar from "../components/common/Navbar";
 import { Course } from "../models/Course";
 import { Task, TaskType } from "../models/Task";
 import { TaskBD } from "../models/TaskBD";
-import axios from 'axios';
+
+const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 const fetchSubjects = async (): Promise<Course[]> => {
   try {
-    const response = await axios.get('http://localhost:8080/api/v1/subjects', {
+    const response = await axios.get(`${apiUrl}/api/v1/subjects`, {
       withCredentials: true
     });
     return response.data.map((subject: any) => ({
