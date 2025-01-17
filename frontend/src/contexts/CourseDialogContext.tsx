@@ -16,7 +16,6 @@ type CourseDialogContextType = {
   addEmptyTask: () => void;
   variant: CourseDialogVariantType;
   updateCourseReqTas: (course: Course) => void;
-  closeDialog: () => void; // Add closeDialog function
 };
 
 export type CourseDialogVariantType = "new" | "edit";
@@ -38,7 +37,6 @@ export const CourseDialogContextProvider = ({
   variant: CourseDialogVariantType;
 }) => {
   const [course, setCourse] = useState(initCourse);
-  const [isDialogOpen, setDialogOpen] = useState(true); // State to manage dialog open/close
 
   useEffect(() => {
     console.log(course);
@@ -120,10 +118,6 @@ export const CourseDialogContextProvider = ({
     }
   };
 
-  const closeDialog = (): void => {
-    setDialogOpen(false);
-  };
-
   const removeRequirement = (id: number): void => {
     setCourse((prev) => {
       const filteredRequirements = prev.requirements.filter(
@@ -198,10 +192,9 @@ export const CourseDialogContextProvider = ({
         addEmptyTask,
         variant,
         updateCourseReqTas,
-        closeDialog,
       }}
     >
-      {isDialogOpen && children} {/* Render children only when dialog is open */}
+      {children}
     </CourseDialogContext.Provider>
   );
 };
