@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Navbar from "../components/common/Navbar";
-import axios from 'axios';
 import { getUser } from "../utils/auth";
 import type { User } from "../utils/auth";
 
@@ -206,7 +205,7 @@ export default function Chat() {
       try {
         const response = await axios.post(
           `${apiUrl}/api/v1/channels/${slug}/messages`,
-          { body: {text: currentInput[subject]} },
+          { body: { text: currentInput[subject] } },
           { withCredentials: true }
         );
 

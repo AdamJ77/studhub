@@ -7,7 +7,7 @@ export interface User {
 
 export const getUser = async (): Promise<User | null> => {
   try {
-    const response = await axios.get("http://localhost:8080/api/v1/me", {
+    const response = await axios.get("http://localhost/api/v1/me", {
       withCredentials: true
     });
     return response.data;
