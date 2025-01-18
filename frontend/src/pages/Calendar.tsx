@@ -135,7 +135,7 @@ export default function Calendar() {
     }
 
     // previous month's days
-    for (let i = monthStartDay - 1; i > 0; i--) {
+    for (let i = (monthStartDay || 7) - 1; i > 0; i--) {
       const prevDate = new Date(firstDayOfMonth);
       prevDate.setDate(prevDate.getDate() - i);
       calendar.push(
