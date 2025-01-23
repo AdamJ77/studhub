@@ -21,7 +21,7 @@ class LoggingConfig(BaseModel):
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Student Scheduler"
+    PROJECT_NAME: str = "StudHub"
     PROJECT_SLUG: str = "studhub"
     LOAD_EXAMPLE_DATA: bool = False
 

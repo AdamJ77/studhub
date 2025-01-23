@@ -45,7 +45,7 @@ export default function LoginCard() {
               alt="logo"
               className="w-9 aspect-square"
             />
-            <h2 className="font-bold text-3xl">Student Scheduler</h2>
+            <h2 className="font-bold text-3xl">StudHub</h2>
           </div>
         </CardTitle>
         <CardDescription>The only friend you can count on</CardDescription>

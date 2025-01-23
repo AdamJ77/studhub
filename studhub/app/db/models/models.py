@@ -86,6 +86,7 @@ class LinkedCourse(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="user.id")
     course_id: int = Field(foreign_key="course.id")
+    color: str = Field(default="#FF0000")
 
     user: User = Relationship(back_populates="linked_courses")
     course: Course = Relationship(back_populates="linked_courses")
@@ -141,6 +142,7 @@ class Subject(SQLModel):
     status: SubjectStatus
     requirements: list[Requirement]
     tasks: list[Task]
+    accent_color: str
 
 
 class UserInfo(SQLModel):

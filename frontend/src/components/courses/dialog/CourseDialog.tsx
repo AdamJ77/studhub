@@ -27,7 +27,7 @@ export default function CourseDialog({
   variant: CourseDialogVariantType;
 }) {
   const title =
-    variant === "new" ? "Dodawanie przedmiotu" : "Edytowanie przedmiotu";
+    variant === "new" ? "Adding subject" : "Editing subject";
 
   return (
     <CourseDialogContextProvider course={course} variant={variant}>

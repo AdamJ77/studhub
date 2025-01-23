@@ -23,7 +23,7 @@ export default function CourseDialogTasks() {
 
   return (
     <div className="mt-8">
-      <h3 className="font-semibold">Zaliczenia</h3>
+      <h3 className="font-semibold">Assessments</h3>
       <div>
         {course.tasks.map((task, id) => (
           <div key={id} className="flex w-full">

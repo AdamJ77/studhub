@@ -55,9 +55,28 @@ def get_subjects(user: models.User) -> list[models.Subject]:
             status=models.SubjectStatus.IN_PROGRESS,
             requirements=linked_course.requirements,
             tasks=linked_course.tasks,
+            accent_color=linked_course.color,
         )
         for linked_course in user.linked_courses
     ]
+
+
+def update_linked_course_color(
+    db: Session,
+    subject_id: int,
+    user: models.User,
+    accent_color: str,
+):
+    """Update accent color for linked course"""
+    select_linked_course = (
+        select(models.LinkedCourse)
+        .where(models.LinkedCourse.user_id == user.id)
+        .where(models.LinkedCourse.course_id == subject_id)
+    )
+    db_linked_course = db.exec(select_linked_course).first()
+    if db_linked_course:
+        db_linked_course.color = accent_color
+        db.commit()
 
 
 def try_add_user(db: Session, user: models.UserCreate) -> models.User:
@@ -72,9 +91,7 @@ def try_add_user(db: Session, user: models.UserCreate) -> models.User:
 
 
 def try_add_course(db: Session, course: models.CourseCreate) -> models.Course:
-    course_select = select(models.Course).where(
-        models.Course.code == course.code
-    )
+    course_select = select(models.Course).where(models.Course.code == course.code)
     db_course = db.exec(course_select).first()
 
     if db_course is None:

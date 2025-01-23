@@ -98,7 +98,7 @@ export default function CourseAccordionTrigger({
     <div className="flex items-center justify-between w-full px-4">
       <div className="flex gap-4 items-center">
         <div
-          style={{ backgroundColor: course.appearance.background_color }}
+          style={{ backgroundColor: course.accent_color }}
           className="w-4 h-4 aspect-square rounded-sm"
         />
         <p>{course.name}</p>

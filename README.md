@@ -1,4 +1,4 @@
-# Student Scheduler
+# StudHub
 
 ## Running the application
 ```bash

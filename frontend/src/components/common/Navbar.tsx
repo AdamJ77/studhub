@@ -47,7 +47,7 @@ export default function Navbar() {
                 alt="logo"
                 className="w-7 aspect-square"
               />
-              <h2 className="font-bold text-xl">Student Scheduler</h2>
+              <h2 className="font-bold text-xl">StudHub</h2>
             </div>
           </NavigationMenuItem>
           <NavigationMenuItem>

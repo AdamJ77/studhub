@@ -44,7 +44,7 @@ export default function CourseDialogRequirements() {
 
   return (
     <div>
-      <h3 className="font-semibold">Warunki zaliczenia</h3>
+      <h3 className="font-semibold">Subject completion requirements</h3>
       <div>
         {course.requirements.map((requirement, id) => (
           <div key={id} className="flex w-full">

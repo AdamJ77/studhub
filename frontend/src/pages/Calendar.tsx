@@ -15,9 +15,7 @@ const fetchSubjects = async (): Promise<Course[]> => {
     });
     return response.data.map((subject: any) => ({
       name: subject.name,
-      appearance: {
-        background_color: "#FF0000",
-      },
+      accent_color: subject.accent_color,
       tasks: convertTasksBDToTasks(subject.tasks) || []
     }));
   } catch (error) {
@@ -248,7 +246,7 @@ export default function Calendar() {
                 {selectedSubjects.flatMap((subject) =>
                   subject.tasks.filter((event: { deadline: Date; }) => isEqual(event.deadline, selectedDate)).map((event: { task_type: string; }, eventIndex: React.Key | null | undefined) => (
                     <div key={eventIndex} style={{ marginBottom: "10px" }}>
-                      <div style={{ width: "20px", height: "20px", backgroundColor: subject.appearance.background_color, marginRight: "10px", display: "inline-block" }}></div>
+                      <div style={{ width: "20px", height: "20px", backgroundColor: subject.accent_color, marginRight: "10px", display: "inline-block" }}></div>
                       <span>{subject.name} - {event.task_type}</span>
                     </div>
                   ))

@@ -20,9 +20,7 @@ const fetchSubjects = async (): Promise<Course[]> => {
     return response.data.map((subject: any) => ({
       id: subject.id,
       name: subject.name,
-      appearance: {
-        background_color: "#FF0000",
-      },
+      accent_color: subject.accent_color,
       tasks: convertTasksBDToTasks(subject.tasks) || [],
       requirements: convertRequirementsBDToRequirements(subject.requirements) || []
     }));

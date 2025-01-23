@@ -11,7 +11,7 @@ export default function Footer() {
         className="w-6 aspect-square mx-4"
       />
       <p className="text-slate-400">
-        {now.getFullYear()} &copy; Student Scheduler
+        {now.getFullYear()} &copy; StudHub
       </p>
     </div>
   );

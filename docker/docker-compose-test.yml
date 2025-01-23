@@ -1,5 +1,5 @@
 version: '3.4'
-name: student-scheduler-test
+name: studhub-test
 
 services:
   db:

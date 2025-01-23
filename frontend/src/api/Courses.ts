@@ -4,9 +4,7 @@ export const coursesFakeData: Course[] = [
   {
     id: "2",
     name: "Systemy Operacyjne",
-    appearance: {
-      background_color: "#FF0000",
-    },
+    accent_color: "#FF0000",
     tasks: [
       {
         max_points: 10,
@@ -67,9 +65,7 @@ export const coursesFakeData: Course[] = [
   {
     id: "1",
     name: "Probabilistyka",
-    appearance: {
-      background_color: "#123456",
-    },
+    accent_color: "#123456",
     tasks: [
       {
         max_points: 10,

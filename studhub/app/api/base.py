@@ -108,6 +108,22 @@ async def replace_tasks(
         )
 
 
+@base_router.put("/subjects/{subject_id}/accent-color")
+async def update_subject_color(
+    subject_id: int,
+    db: DatabaseDep,
+    user: CurrentUserDep,
+    color: str = Body(...),
+):
+    try:
+        queries.update_linked_course_color(db, subject_id, user, color)
+    except NoResultFound:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Subject with id {subject_id} not found",
+        )
+
+
 def chat_service(request: Request):
     return request.app.state.chat_service
 

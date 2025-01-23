@@ -7,9 +7,7 @@ export default function NewCourseDialog() {
   const emptyCourse: Course = {
     id: uuidv4(),
     name: "",
-    appearance: {
-      background_color: "#FFFFFF",
-    },
+    accent_color: "#FFFFFF",
     tasks: [],
     requirements: [],
   };
