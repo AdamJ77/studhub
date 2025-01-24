@@ -36,6 +36,7 @@ services:
       - PYTHONPATH=/app/studhub
       - REDIS_URL=redis://redis
       - USOS_CLIENT_KEY=${USOS_CLIENT_KEY}
+      - USOS_CLIENT_ID=${USOS_CLIENT_ID}
     expose:
       - 8080
     # ports:
