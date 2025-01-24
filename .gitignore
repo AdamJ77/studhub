@@ -61,4 +61,3 @@ venv
 
 # Production configuration
 .env.prod
-.env.dev

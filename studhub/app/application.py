@@ -27,7 +27,7 @@ async def lifespan(app: FastAPI):
     oauth = OAuth()
     oauth.register(
         name="usos",
-        client_id="ZqY8Swt2LyAMWmKHwx5M",
+        client_id=settings.USOS_CLIENT_ID,
         client_secret=settings.USOS_CLIENT_KEY,
         api_base_url="https://apps.usos.pw.edu.pl/",
         request_token_url="https://apps.usos.pw.edu.pl/services/oauth/request_token?scopes=email%7Cstudies",

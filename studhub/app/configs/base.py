@@ -161,6 +161,7 @@ class Settings(BaseSettings):
         REDIS_URL = url + "?" + args_str
 
     # ########################## OAuth Configuration ###########################
+    USOS_CLIENT_ID = os.getenv("USOS_CLIENT_ID")
     USOS_CLIENT_KEY = os.getenv("USOS_CLIENT_KEY")
-    if not USOS_CLIENT_KEY:
+    if not (USOS_CLIENT_KEY and USOS_CLIENT_ID):
         raise ValueError("USOS_CLIENT_KEY is not set.")
