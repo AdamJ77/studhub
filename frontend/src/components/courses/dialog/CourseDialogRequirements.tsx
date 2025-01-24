@@ -103,7 +103,7 @@ export default function CourseDialogRequirements() {
         className="border-2 border-blue-500 text-blue-500 rounded-lg px-4 py-2 flex items-center justify-between hover:bg-blue-200 mt-2 gap-4 text-sm"
       >
         <FaPlus />
-        Dodaj warunek zaliczenia
+        Add completion requirement
       </button>
     </div>
   );
