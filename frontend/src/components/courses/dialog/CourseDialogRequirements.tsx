@@ -22,22 +22,22 @@ export default function CourseDialogRequirements() {
 
   const thresholdTypesValues: PossibleValueType[] = [
     {
-      label: "punktów",
+      label: "Points",
       value: "Points",
     },
     {
-      label: "procent",
+      label: "Percent",
       value: "Percent",
     },
   ];
 
   const requirementTypesValues: PossibleValueType[] = [
     {
-      label: "z całości",
+      label: "Total",
       value: "Total",
     },
     {
-      label: "osobno",
+      label: "Separately",
       value: "Separately",
     },
   ];
@@ -55,7 +55,7 @@ export default function CourseDialogRequirements() {
                 )!
               }
               possibleValues={taskTypesValues}
-              title="Typ Zadania"
+              title="Task type"
               field="task_type"
               id={id}
             />
@@ -74,7 +74,7 @@ export default function CourseDialogRequirements() {
                 )!
               }
               possibleValues={thresholdTypesValues}
-              title="Typ Thresholdu"
+              title="Threshold type"
               field="threshold_type"
               id={id}
             />
@@ -85,7 +85,7 @@ export default function CourseDialogRequirements() {
                 )!
               }
               possibleValues={requirementTypesValues}
-              title="Typ Requirementu"
+              title="Requirement type"
               field="requirement_type"
               id={id}
             />

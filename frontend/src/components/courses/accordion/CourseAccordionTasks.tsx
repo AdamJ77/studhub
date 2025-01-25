@@ -4,11 +4,11 @@ import React from "react";
 export default function CourseAccordionTasks({ tasks }: { tasks: Task[] }) {
   const filteredTasks = [
     {
-      title: "Laboratorium",
+      title: "Laboratory",
       tasks: tasks.filter((task) => task.task_type === "Laboratorium"),
     },
     {
-      title: "Projekt",
+      title: "Project",
       tasks: tasks.filter((task) => task.task_type === "Projekt"),
     },
   ].filter(({ tasks }) => tasks.length > 0);
@@ -22,9 +22,8 @@ export default function CourseAccordionTasks({ tasks }: { tasks: Task[] }) {
             {tasks.map((task, id) => (
               <div
                 key={id}
-                className={`flex items-center justify-between p-4 ${
-                  id !== 0 ? "border-t border-slate-200" : ""
-                }`}
+                className={`flex items-center justify-between p-4 ${id !== 0 ? "border-t border-slate-200" : ""
+                  }`}
               >
                 <div>
                   {id + 1}.{" "}

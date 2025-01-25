@@ -12,17 +12,17 @@ export default function CoursesAccordionRequirement({
 }) {
   const getStartText = (): string => {
     if (requirement.requirement_type === "Total")
-      return "Z sumy wszystkich zaliczeń typu: ";
+      return "The sum of all tasks of the type: ";
     else if (requirement.requirement_type === "Separately")
-      return "Z każdego zaliczenia typu: ";
+      return "The result of each task of the type: ";
     throw new Error("Invalid requirement type!");
   };
 
   const getEndText = (): string => {
     if (requirement.threshold_type === "Points")
-      return ` należy zdobyć: minimum ${requirement.threshold} punktów`;
+      return ` must be at least: ${requirement.threshold} points`;
     else if (requirement.threshold_type === "Percent")
-      return ` należy zdobyć: ${requirement.threshold}% punktów`;
+      return ` must be at least: ${requirement.threshold}% points`;
     throw new Error("Invalid requirement threshold type!");
   };
 
@@ -86,7 +86,7 @@ export default function CoursesAccordionRequirement({
         {getEndText()}
       </p>
       <div className="mt-4 relative">
-        <Progress value={Math.min(score, 100)} indicatorColor="bg-blue-500" className="bg-slate-300"/>
+        <Progress value={Math.min(score, 100)} indicatorColor="bg-blue-500" className="bg-slate-300" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-semibold z-100">
           {score}%
         </div>

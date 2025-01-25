@@ -23,7 +23,7 @@ export default function CourseDialogTasks() {
 
   return (
     <div className="mt-8">
-      <h3 className="font-semibold">Assessments</h3>
+      <h3 className="font-semibold">Tasks</h3>
       <div>
         {course.tasks.map((task, id) => (
           <div key={id} className="flex w-full">
@@ -32,7 +32,7 @@ export default function CourseDialogTasks() {
                 taskTypesValues.find(({ value }) => value === task.task_type)!
               }
               possibleValues={taskTypesValues}
-              title="Typ Zadania"
+              title="Task type"
               field="task_type"
               id={id}
             />
@@ -81,7 +81,7 @@ export default function CourseDialogTasks() {
         className="border-2 border-blue-500 text-blue-500 rounded-lg px-4 py-2 flex items-center justify-between hover:bg-blue-200 mt-2 gap-4 text-sm"
       >
         <FaPlus />
-        Add assessment
+        Add task
       </button>
     </div>
   );
