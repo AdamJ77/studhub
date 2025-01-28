@@ -33,6 +33,9 @@ async def lifespan(app: FastAPI):
         request_token_url="https://apps.usos.pw.edu.pl/services/oauth/request_token?scopes=email%7Cstudies",
         authorize_url="https://apps.usos.pw.edu.pl/services/oauth/authorize",
         access_token_url="https://apps.usos.pw.edu.pl/services/oauth/access_token",
+        client_kwargs={
+            'verify': False # To disable SSL cert verification
+        }
     )
     app.oauth = oauth
     app.state.chat_service = create_chat_service(settings.REDIS_URL)
