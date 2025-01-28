@@ -171,6 +171,7 @@ export default function Chat() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (user) {
       try {
         const channels = await fetchChannels();
         const chatsWithMessages = await Promise.all(
@@ -193,15 +194,13 @@ export default function Chat() {
         }
       } catch (error) {
         console.error('Error fetching channels and messages:', error);
-      }
+      }}
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   const handleSend = async (subject: string, slug: string) => {
     if (currentInput[subject]?.trim()) {
-      const newMessage = { text: currentInput[subject], isUser: true, sender: 'User' };
-
       try {
         const response = await axios.post(
           `${apiUrl}/api/v1/channels/${slug}/messages`,
@@ -238,6 +237,10 @@ export default function Chat() {
   };
 
   const currentChat = chats.find(chat => chat.subject === currentSubject);
+
+  if (!user) {
+    return (<div>Loading...</div>)
+  }
 
   return (
     <>
